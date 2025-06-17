@@ -12,12 +12,12 @@ import java.util.Objects;
 
 
 @Entity
-@Table(name = "car")
+@Table(name = "cars")
 public class Car {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+    private Long id;
 
     @Column(name = "model")
     private String model;
@@ -53,18 +53,19 @@ public class Car {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Car car = (Car) o;
-        return series == car.series && Objects.equals(model, car.model);
+        return series == car.series && Objects.equals(id, car.id) && Objects.equals(model, car.model) && Objects.equals(user, car.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(model, series);
+        return Objects.hash(id, model, series, user);
     }
 
     @Override
     public String toString() {
         return "Car{" +
-               "model='" + model + '\'' +
+               "id=" + id +
+               ", model='" + model + '\'' +
                ", series=" + series +
                '}';
     }
@@ -72,11 +73,11 @@ public class Car {
     @OneToOne(mappedBy = "car", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     User user;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

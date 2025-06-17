@@ -15,8 +15,13 @@ public class CarServiceImpl implements CarService{
 
     @Transactional
     @Override
-    public void add(Car car) {
-        carDao.add(car);
+    public List<Car> createListCars(Car... cars) {
+        return carDao.createListCars(cars);
+    }
+    @Transactional
+    @Override
+    public List<Car> addCarInListCars(Car... cars) {
+        return carDao.addCarInListCars(cars);
     }
 
     @Transactional
