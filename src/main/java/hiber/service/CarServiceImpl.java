@@ -2,6 +2,7 @@ package hiber.service;
 
 import hiber.dao.CarDao;
 import hiber.model.Car;
+import hiber.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
@@ -42,4 +43,9 @@ public class CarServiceImpl implements CarService{
         carDao.addAllCarsInAllUsers();
     }
 
+    @Transactional
+    @Override
+    public User getUserByCarModelAndSeries(String model, int series){
+        return carDao.getUserByCarModelAndSeries(model,series);
+    };
 }

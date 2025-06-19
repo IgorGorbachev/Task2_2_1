@@ -60,7 +60,6 @@ public class CarDaoImpl implements CarDao {
                 }
             }
         }
-
     }
 
     @Override
@@ -68,5 +67,21 @@ public class CarDaoImpl implements CarDao {
         List<Car> cars = sessionFactory.getCurrentSession().createQuery("from Car").getResultList();
         System.out.println(cars);
         return cars;
+    }
+
+    @Override
+    public User getUserByCarModelAndSeries(String model, int series) {
+        Car car = sessionFactory.getCurrentSession()
+                .createQuery("from Car where model = :model and series = :series", Car.class)
+                .setParameter("model", model)
+                .setParameter("series", series)
+                .getSingleResult();
+
+        if (car != null) {
+            System.out.println(car.getUser());
+            return car.getUser();
+        } else {
+            return null;
+        }
     }
 }
