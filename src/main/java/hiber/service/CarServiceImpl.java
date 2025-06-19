@@ -29,4 +29,17 @@ public class CarServiceImpl implements CarService{
     public List<Car> listCars() {
         return carDao.listCars();
     }
+
+    @Transactional
+    @Override
+    public void addCarInUser(long userId, long carId) {
+        carDao.addCarInUser(userId, carId);
+    }
+
+    @Transactional
+    @Override
+    public void addAllCarsInAllUsers() {
+        carDao.addAllCarsInAllUsers();
+    }
+
 }

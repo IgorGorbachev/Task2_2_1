@@ -30,11 +30,37 @@ public class CarDaoImpl implements CarDao {
     @Override
     public List<Car> addCarInListCars(Car... cars) {
         List<Car> list = listCars();
-        for(Car c : cars){
+        for (Car c : cars) {
             sessionFactory.getCurrentSession().save(c);
             list.add(c);
         }
         return list;
+    }
+    @Override
+    public void addCarInUser(long userId, long carId) {
+        User user = sessionFactory.getCurrentSession().get(User.class, userId);
+        Car car = sessionFactory.getCurrentSession().get(Car.class, carId);
+        user.setCar(car);
+        car.setUser(user);
+    }
+
+    @Override
+    public void addAllCarsInAllUsers() {
+
+        List<User> listUsers = sessionFactory.getCurrentSession().createQuery("from User").getResultList();
+        List<Car> listCars = listCars();
+        for (User u : listUsers) {
+            if (u != null && u.getId() <= listCars.size()) {
+                int index = Math.toIntExact((u.getId() - 1));
+                if (index >= 0 && index < listCars.size()) {
+                    Car car = listCars.get(index);
+                    if (car != null) {
+                        u.setCar(car);
+                    }
+                }
+            }
+        }
+
     }
 
     @Override

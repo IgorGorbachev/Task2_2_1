@@ -38,33 +38,6 @@ public class UserDaoImp implements UserDao {
     }
 
     @Override
-    public void addCarInUser(long userId, long carId) {
-        User user = sessionFactory.getCurrentSession().get(User.class, userId);
-        Car car = sessionFactory.getCurrentSession().get(Car.class, carId);
-        user.setCar(car);
-        car.setUser(user);
-    }
-
-    @Override
-    public void addAllCarsInAllUsers() {
-
-        List<User> listUsers = listUsers();
-        List<Car> listCars = sessionFactory.getCurrentSession().createQuery("from Car").getResultList();
-        for (User u : listUsers) {
-            if (u != null && u.getId() <= listCars.size()) {
-                int index = Math.toIntExact((u.getId() - 1));
-                if (index >= 0 && index < listCars.size()) {
-                    Car car = listCars.get(index);
-                    if (car != null) {
-                        u.setCar(car);
-                    }
-                }
-            }
-        }
-
-    }
-
-    @Override
     public List<User> listUsers() {
         List<User> list = sessionFactory.getCurrentSession().createQuery("from User").getResultList();
         System.out.println(list);

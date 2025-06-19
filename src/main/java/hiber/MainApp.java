@@ -34,7 +34,7 @@ public class MainApp {
                 new Car("Model4", 4),
                 new Car("Model5", 5),
                 new Car("Model6", 6));
-            userService.addAllCarsInAllUsers();
+
 
 //        userService.addCarInUser(1,10);
 
